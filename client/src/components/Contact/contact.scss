@@ -1,0 +1,89 @@
+.contact {
+  padding: 100px 0 50px;
+
+  .container {
+    text-align: center;
+    h4 {
+      color: var(--green);
+      font-weight: 400;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: var(--lightest-slate);
+      font-size: clamp(40px, 5vw, 60px);
+      margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 20px;
+        color: var(--slate);
+
+        @media (max-width: 992px) {
+          font-size: 18px;
+        }
+    }
+
+    .btn {
+        width: fit-content;
+        font-size: 15px;
+        padding: 20px 28px;
+        border: 1px solid var(--green);
+        border-radius: 3px;
+        color: var(--green);
+        display: inline-block;
+        margin-top: 50px;
+        text-decoration: none;
+        letter-spacing: 1.1px;
+        &:hover {
+          background-color: var(--green-tint);
+      }
+    }
+
+    .contactMe{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 200px;
+      display: none;
+
+      @media (max-width: 767px) {
+        display: flex;
+      }
+      i {
+        font-size: 22px;
+        display: block;
+        margin-bottom: 20px;
+        color: var(--lightest-slate);
+        transition: all 0.2s linear;
+  
+        &:hover {
+          color: var(--green);
+          transform: translateY(-5px);
+        }
+      }
+
+      .fa-instagram {
+        margin: 0 30px;
+      }
+    }
+
+    .myGithub {
+        display: block;
+        margin-top: 200px;
+        color: var(--light-slate);
+        font-size: 13px;
+        text-decoration: none;
+        letter-spacing: 1.2px;
+
+        @media (max-width: 767px) {
+          margin: 0;
+        }
+
+        &:hover {
+            color: var(--green);
+        }
+    }
+  }
+}

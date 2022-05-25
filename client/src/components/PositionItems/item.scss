@@ -1,0 +1,70 @@
+.positionItems {
+  
+  @media (max-width: 767px) {
+    display: none;
+  }
+  
+    .email {
+      position: fixed;
+      right: -80px;
+      bottom: 270px;
+      transform: rotate(90deg);
+      text-decoration: none;
+  
+      span {
+        transition: all 0.2s linear;
+        color: var(--lightest-slate);
+        font-weight: 300;
+        font-size: 15px;
+        letter-spacing: 1.2px;
+        display: block;
+        &:hover {
+          color: var(--green);
+          transform: translateX(-5px);
+        }
+      }
+  
+      &::after {
+        content: '';
+        position: absolute;
+        right: -140px;
+        top: 10px;
+        width: 100px;
+        height: 1px;
+        background-color: var(--lightest-slate);
+      }
+    }
+  
+    .messangers {
+      position: fixed;
+      bottom: 140px;
+      left: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      i {
+        font-size: 22px;
+        display: block;
+        margin-bottom: 20px;
+        color: var(--lightest-slate);
+        transition: all 0.2s linear;
+  
+        &:hover {
+          color: var(--green);
+          transform: translateY(-5px);
+        }
+      }
+  
+      &::after {
+        content: '';
+        width: 1px;
+        height: 100px;
+        background-color: var(--lightest-slate);
+        position: absolute;
+        left: 10px;
+        bottom: -140px;
+      }
+    }
+  }
+  
