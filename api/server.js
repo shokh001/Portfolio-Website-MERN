@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/user/', require('./routes/userRoutes'));
 app.use('/api/company/', require('./routes/companyRoutes'));
 app.use('/api/portfolio/', require('./routes/portfolioRoutes'));
+app.use('/api/aboutMe/', require('./routes/aboutMeRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

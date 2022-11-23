@@ -14,7 +14,7 @@ const Main = () => {
                         <Typed
                             strings={[
                                 'a front-end developer.',
-                                'a student.' ]}
+                                'a hard worker.' ]}
                             typeSpeed={40}
                             backSpeed={40}
                             loop >

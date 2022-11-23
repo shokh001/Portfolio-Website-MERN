@@ -38,3 +38,37 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+
+.productUpload{
+  display: flex;
+  align-items: center;
+}
+
+.productUpload button {
+  margin-left: 20px;
+}
+
+.addTech {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.addTech span {
+  display: flex;
+  align-items: center;
+  padding: 3px;
+  background: rgb(211, 209, 209);
+  margin-right: 5px;
+  font-weight: 600;
+  border-radius: 3px;
+  margin-top: 5px;
+}
+
+.protechicon {
+  font-size: 15px;
+  margin-left: 8px;
+  color: red;
+  cursor: pointer;
+}

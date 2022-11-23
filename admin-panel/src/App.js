@@ -1,7 +1,7 @@
 import Sidebar from "./components/sidebar/Sidebar";
 import Topbar from "./components/topbar/Topbar";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import UserList from "./pages/userList/UserList";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
@@ -10,13 +10,31 @@ import NewProduct from "./pages/newProduct/NewProduct";
 import CompanyList from "./pages/companyList/CompanyList";
 import Company from "./pages/company/Company";
 import NewCompany from "./pages/newCompany/NewCompany";
+import AboutMe from "./pages/aboutMe/AboutMe";
+import Login from "./pages/login";
+import { useEffect, useState } from "react";
 
 function App() {
+  const history = useHistory();
+  const [sideHide, setSideHide] = useState(false);
+
+  console.log(history);
+
+  useEffect(() => {
+
+    if (localStorage.getItem("user")) {
+      history.push('/')
+    } else history.push('/login')
+
+  }, [])
+
   return (
-    <Router>
-      <Topbar />
+    <>
+      <Topbar setSideHide={setSideHide} />
       <div className="container">
-        <Sidebar />
+        {
+          sideHide && <Sidebar />
+        }
         <Switch>
           <Route exact path="/">
             <UserList />
@@ -24,6 +42,9 @@ function App() {
           <Route path="/user/:productId">
             <User />
           </Route>
+          {/* <Route path="/newUser">
+            <NewUser />
+          </Route> */}
           <Route path="/products">
             <ProductList />
           </Route>
@@ -42,9 +63,15 @@ function App() {
           <Route path="/newcompany">
             <NewCompany />
           </Route>
+          <Route path="/about">
+            <AboutMe />
+          </Route>
         </Switch>
       </div>
-    </Router>
+      <Route path="/login">
+        <Login setSideHide={setSideHide} />
+      </Route>
+    </>
   );
 }
 

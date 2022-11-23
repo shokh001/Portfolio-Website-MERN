@@ -18,7 +18,7 @@ const portfolio = new Schema({
     required: true,
   },
   technology: {
-    type: Object,
+    type: Array,
     required: true,
   },
 });

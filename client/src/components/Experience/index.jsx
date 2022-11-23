@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './experience.scss'
 
 const Experience = ({companyData}) => {
-    const [active, setActive] = useState(1);
+    const [active, setActive] = useState(1);    
 
     return (
         <div className="experience" id='experience'>
@@ -20,7 +20,7 @@ const Experience = ({companyData}) => {
                                         <li key={id}>
                                             <span
                                                 onClick={() => setActive(id)}
-                                                className={(active === id)? 'active': ''}
+                                                className={(active === id) ? 'active' : ''}
                                             >
                                                 {role}
                                             </span>
@@ -33,7 +33,7 @@ const Experience = ({companyData}) => {
 
                     <div className="right-section">
                         {
-                            companyData.map(({ id, role, link, title, date, descr }) => {
+                            companyData?.map(({ id, role, link, title, date, descr }) => {
                                 return (
                                     active === id &&
                                     <div key={id} className='card'>

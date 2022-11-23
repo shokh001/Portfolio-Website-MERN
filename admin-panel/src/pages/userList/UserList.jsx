@@ -1,13 +1,12 @@
 import "./userList.css";
 import { DataGrid } from "@material-ui/data-grid";
-// import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
+import { DeleteOutline } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function UserList() {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
   const [load, setLoad] = useState(false);
 
   const fetchData = () => {
@@ -26,14 +25,14 @@ export default function UserList() {
   }
 
   // const handleDelete = async (id) => {
-  //   // await axios
-  //   //   .delete(`http://localhost:5000/api/portfolio/${id}`)
-  //   //   .then(res => {
-  //   //     console.log(res.data.message)
-  //   //   })
-  //   //   .catch(err => console.log(err, 'err'))
+  //   await axios
+  //     .delete(`http://localhost:5000/api/user/${id}`)
+  //     .then(res => {
+  //       console.log(res.data.message)
+  //     })
+  //     .catch(err => console.log(err, 'err'))
 
-  //   // fetchData();
+  //   fetchData();
   // };
 
   useEffect(() => {
@@ -43,23 +42,10 @@ export default function UserList() {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "user",
-      headerName: "Name",
-      width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            {params.row.name}
-          </div>
-        );
-      },
-    },
-    {
       field: "username",
       headerName: "Username",
       width: 160,
     },
-    { field: "email", headerName: "Email", width: 200 },
     {
       field: "password",
       headerName: "Password",
@@ -88,15 +74,21 @@ export default function UserList() {
   return (
     <div className="userList">
       {
-        load? 
-        <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />:
-      <div>loading...</div>
+        load ?
+          <>
+            {/* <Link className="productAddButton" to="/newUser">
+              Create
+            </Link> */}
+            <DataGrid
+              rows={data}
+              disableSelectionOnClick
+              columns={columns}
+              pageSize={8}
+              checkboxSelection
+            />
+          </>
+          :
+          <div>loading...</div>
       }
     </div>
   );

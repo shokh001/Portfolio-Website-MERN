@@ -10,22 +10,22 @@ const {
 } = require("../controllers/userControllers");
 
 
-//REGISTER
+// //REGISTER
 router.post("/register", register);
 
 //LOGIN
 router.post("/login", login);
 
-//GET USER
+// //GET USER
 router.get("/", getAllUser);
 
-//GET ID USER
+// //GET ID USER
 router.get("/:id", getUserById);
 
-//DETELE USER
+// //DETELE USER
 router.delete("/:id", removeUser)
 
-//UPDATE USER
+// //UPDATE USER
 router.put("/:id", updateUser)
 
 module.exports = router;

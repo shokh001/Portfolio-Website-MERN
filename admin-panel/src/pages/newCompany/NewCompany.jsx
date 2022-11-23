@@ -39,19 +39,19 @@ export default function NewCompany() {
 
     return (
         <div className="newProduct">
-            <h1 className="addProductTitle">New Compnay</h1>
+            <h1 className="addProductTitle">New Company</h1>
             <form onSubmit={handleSubmit} className="productForm">
                 <div className="productFormLeft">
                     <label>Company Name</label>
                     <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Name" />
                     <label>Companiya website</label>
-                    <input onChange={(e) => setLink(e.target.value)} type="text" placeholder="Company website" />
-                    <label>Date qancha vaqt ishlagan</label>
-                    <input onChange={(e) => setDate(e.target.value)} type="text" placeholder="Company website" />
-                    <label>Companiya haqida</label>
-                    <input onChange={(e) => setDescr(e.target.value)} type="text" placeholder="Description" />
+                    <input onChange={(e) => setLink(e.target.value)} type="text" placeholder="The website of company" />
+                    <label>Worked Date</label>
+                    <input onChange={(e) => setDate(e.target.value)} type="text" placeholder="Date" />
+                    <label>About the company</label>
+                    <textarea onChange={(e) => setDescr(e.target.value)} type="text" placeholder="Description"></textarea>
                     <label>Role</label>
-                    <input onChange={(e) => setRole(e.target.value)} type="text" placeholder="Vazifasi" />
+                    <input onChange={(e) => setRole(e.target.value)} type="text" placeholder="Responsibility" />
                 </div>
                 <div className="productFormRight">
                     <button type="submit" className="productButton">Add</button>

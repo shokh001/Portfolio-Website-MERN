@@ -17,6 +17,7 @@ const Root = () => {
   const [spinner, setSpinner] = useState(true);
   const [data, setData] = useState([]);
   const [companyData, setCompanyData] = useState([]);
+  const [aboutData, setAboutData] = useState([]);
 
   const fetchPortfolio = async () => {
     await axios.get('http://localhost:5000/api/portfolio/')
@@ -31,7 +32,7 @@ const Root = () => {
       })
       .catch(err => console.log(err, 'err'))
   }
-  
+
   const fetchCompany = async () => {
     await axios.get('http://localhost:5000/api/company/')
       .then(res => {
@@ -41,22 +42,45 @@ const Root = () => {
           value = Object.assign(value, { id })
         })
         setCompanyData(res.data.data)
+        setSpinner(false);
       })
       .catch(err => console.log(err, 'err'))
   }
 
+  const fetchAboutMe = async () => {
+    await axios.get('http://localhost:5000/api/aboutMe/')
+      .then(res => {
+        setAboutData(res.data.data)
+        setSpinner(false);
+      })
+      .catch(err => console.log(err, 'err'))
+  }
+
+  const fetchAbout = async () => {
+    await axios.get('http://localhost:5000/api/aboutMe/')
+      .then(res => {
+        console.log(res, 'about');
+        setAboutData(res.data.data)
+        setSpinner(false);
+      })
+      .catch(err => console.log(err, 'err'))
+  }
+
+  
   useEffect(() => {
     fetchPortfolio();
+    fetchAboutMe();
     fetchCompany();
+    fetchAbout()
   }, [])
 
   return (
     spinner ? <Loader /> :
       <div className="root">
         <PositionItems />
-        <Navbar />
+        <Navbar aboutData={aboutData} />
         <Main />
-        <About />
+        <About aboutData={aboutData}/>
         <Experience companyData={companyData} />
         <Work data={data} />
         <WorkTwo data={data} />

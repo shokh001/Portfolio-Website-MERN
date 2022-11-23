@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import axios from "axios";
 import "./product.css";
 
@@ -13,6 +14,8 @@ export default function Product() {
     const [link, setLink] = useState('')
     const [descr, setDescr] = useState('')
     const [technology, setTechnology] = useState('')
+    const [techData, setTechData] = useState([]);
+    const [id, setId] = useState(new Date())
 
     const fetchData = async () => {
         await axios
@@ -26,28 +29,35 @@ export default function Product() {
 
     const handleSubmit = async (e) => {
         // e.preventDefault();
-        if (title !== '' && link !== '' && external_link !== '' && descr !== '' && technology !== '') {
-            await axios
+        await axios
             .put(`http://localhost:5000/api/portfolio/${productId}`, {
-                external_link,
-                link,
-                title,
-                descr,
-                technology
+                external_link: external_link !== '' ? external_link : data.external_link,
+                link: link !== '' ? link : data.link,
+                title: title !== '' ? title : data.title,
+                descr: descr !== '' ? descr : data.descr,
+                technology: techData.length !== 0 ? [...data.technology, ...techData] : data.technology
             })
             .then(res => {
                 console.log(res, 'update');
             })
             .catch(err => console.log(err, 'err'))
-        } else(
-            alert('Inputlarni to`ldiring!!!')
-        )
-        
+
     }
 
     useEffect(() => {
         fetchData();
-    })
+    }, [])
+
+    const onSaveTechData = (e) => {
+        e.preventDefault();
+        technology && setTechData([...techData, { id, technology }])
+        setTechnology('')        
+    }
+
+    const deleteTech = (id) => {
+        const newTechData = techData.filter(value => value.id !== id);
+        setTechData(newTechData)
+    }
 
     return (
         loading ?
@@ -83,7 +93,9 @@ export default function Product() {
                             </div>
                             <div className="productInfoItem">
                                 <span className="productInfoKey">technology:</span>
-                                <span className="productInfoValue">{data.technology}</span>
+                                {
+                                    data.technology.map((value) => <span key={value.id} className="productInfoValue">{value.technology}</span>)
+                                }
                             </div>
                         </div>
                     </div>
@@ -93,14 +105,22 @@ export default function Product() {
                         <div className="productFormLeft">
                             <label>Website title</label>
                             <input onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Website title" />
-                            <label>Hostdagi link</label>
-                            <input onChange={(e) => setExternal_link(e.target.value)} type="text" placeholder="Hostdagi link" />
-                            <label>Github link</label>
-                            <input onChange={(e) => setLink(e.target.value)} type="text" placeholder="Github link" />
-                            <label>Website haqida</label>
+                            <label>Url</label>
+                            <input onChange={(e) => setExternal_link(e.target.value)} type="text" placeholder="Url on the host" />
+                            <label>Github url</label>
+                            <input onChange={(e) => setLink(e.target.value)} type="text" placeholder="Url on the github" />
+                            <label>About the website</label>
                             <input onChange={(e) => setDescr(e.target.value)} type="text" placeholder="Description" />
-                            <label>Texnologiyalar</label>
-                            <input onChange={(e) => setTechnology(e.target.value)} type="text" placeholder="Texnologiyalar" />
+                            <label>Technologies</label>
+                            <div className="productUpload">
+                                <input onChange={(e) => setTechnology(e.target.value)} value={technology} type="text" placeholder="Technologies" />
+                                <button onClick={onSaveTechData} type="button" className="productButton">add</button>
+                            </div>
+                            <div className="addTech">
+                                {
+                                    techData.map(value => <span onClick={() => deleteTech(value.id)}>{value.technology} <HighlightOffIcon className="protechicon" /></span>)
+                                }
+                            </div>
                         </div>
                         <div className="productFormRight">
                             <button type="submit" className="productButton">Update</button>

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Resume from './Resume.pdf'
 import './navbar.scss'
 import logo from '../../assets/images/logo.PNG'
-// import enter from '../../assets/icons/enter.png'
 
-const Navbar = () => {
+const Navbar = ({ aboutData }) => {
 
     const [active, setActive] = useState(0);
     const [nav, setNav] = useState(false);
@@ -64,11 +62,7 @@ const Navbar = () => {
                         <li><a href="#contact" onClick={() => linkGo(4)} style={{ border: active === 4 && '2px dashed #64ffda' }}> <span>04.</span> Contact</a></li>
                     </ul>
 
-                    <a className='btn' target='_blank' rel="noreferrer" href={Resume}>Resume</a>
-
-                    {/* <div className='enter'>
-                        <img src={enter} alt="" />
-                    </div> */}
+                    <a className='btn' target='_blank' rel="noreferrer" href={aboutData[0]?.resume}>Resume</a>      
                 </div>
 
                 <div className="burger" onClick={disableScrolling}>

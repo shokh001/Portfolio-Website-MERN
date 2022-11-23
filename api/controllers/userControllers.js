@@ -7,10 +7,8 @@ const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
     const newUser = new User({
-        name: req.body.name,
         isAdmin: req.body.isAdmin,
         username: req.body.username,
-        email: req.body.email,
         password: CryptoJS.AES.encrypt(
             req.body.password,
             process.env.PASS_SEC
@@ -73,7 +71,7 @@ const removeUser = async (req, res) => {
 };
 
 const getAllUser = async (req, res) => {
-    try {
+    try {     
         const data = await User.find();
 
         res.status(200).json({
@@ -99,7 +97,10 @@ const updateUser = async (req, res) => {
             isAdmin,
             username,
             email,
-            password
+            password: CryptoJS.AES.encrypt(
+                password,
+                process.env.PASS_SEC
+            ).toString(),
         });
 
         res.status(200).json({

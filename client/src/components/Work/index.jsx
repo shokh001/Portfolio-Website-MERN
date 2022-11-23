@@ -1,10 +1,11 @@
 import React from "react";
-import fanabi from "../../assets/images/fanabi.png";
+import fanabi from "../../assets/images/uzbekvoice.png";
 import "./work.scss";
 
 const Work = ({ data }) => {
 
-  const newData = data.filter((value) => value.title === 'Fanabi')
+  const newData = data.filter((value) => value.title.trim() === 'UzbekVoice')
+  console.log(data);
 
   return (
     <div className="work experience" id="work">
@@ -19,7 +20,7 @@ const Work = ({ data }) => {
           <a
             target="_blank"
             rel="noreferrer"
-            href={newData[0].external_link}
+            href={newData[0]?.external_link}
             className="project-img"
           >
             <img src={fanabi} alt="" />
@@ -29,30 +30,32 @@ const Work = ({ data }) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href={newData[0].external_link}
+              href={newData[0]?.external_link}
             >
-              {newData[0].title}
+              {newData[0]?.title}
             </a>
 
             <div className="project-card">
-              {newData[0].descr}
+              {newData[0]?.descr}
             </div>
             <ul>
-              <li>{newData[0].technology}</li>
+              {
+                newData[0]?.technology.map(({ id, technology }) => <li key={id}>{technology}</li>)
+              }
             </ul>
 
             <div className="project-link">
               <a
                 target="_blank"
                 rel="noreferrer"
-                href={newData[0].link}
+                href={newData[0]?.link}
               >
                 <i className="fab fa-github"></i>
               </a>
               <a
                 target="_blank"
                 rel="noreferrer"
-                href={newData[0].external_link}
+                href={newData[0]?.external_link}
               >
                 <i className="fas fa-external-link-alt"></i>
               </a>

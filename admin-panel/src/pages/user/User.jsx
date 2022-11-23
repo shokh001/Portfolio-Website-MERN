@@ -1,28 +1,28 @@
-import {
-  MailOutline,
+import {  
   PermIdentity,
   PhoneAndroid,
+  Visibility
 } from "@material-ui/icons";
 import "./user.css";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+var CryptoJS = require("crypto-js");
 
 export default function User() {
-  
-  const history = useHistory();
+
   const { productId } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [name, setName] = useState('')
   const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [eye, setEye] = useState(false)
 
   const fetchData = async () => {
     await axios
       .get(`http://localhost:5000/api/user/${productId}`)
       .then(res => {
+        console.log(res);
         setData(res.data.data)
         setLoading(true)
       })
@@ -30,18 +30,15 @@ export default function User() {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (name !== '' && password !== '' && username !== '' && email !== '') {
+    // e.preventDefault();
+    if (password !== data.password || username !== data.username) {
       await axios
         .put(`http://localhost:5000/api/user/${productId}`, {
-          name,
-          username,
-          email,
-          password
+          username: username !== '' ? username : data.username,
+          password: password !== '' ? password : CryptoJS.AES.decrypt(data.password, 'shoh').toString(CryptoJS.enc.Utf8)
         })
         .then(res => {
           console.log(res, 'update');
-          history.push('/')
         })
         .catch(err => console.log(err, 'err'))
     } else (
@@ -51,13 +48,13 @@ export default function User() {
 
   useEffect(() => {
     fetchData();
-  })
+  }, [])
 
   return (
     loading ?
       <div className="user">
         <div className="userTitleContainer">
-          <h1 className="userTitle">About User</h1>
+          <h1 className="userTitle">About Admins</h1>
         </div>
         <div className="userContainer">
           <div className="userShow">
@@ -74,29 +71,20 @@ export default function User() {
               </div>
               <div className="userShowInfo">
                 <PhoneAndroid className="userShowIcon" />
-                <span className="userShowInfoTitle">{data.password}</span>
-              </div>
-              <div className="userShowInfo">
-                <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">{data.email}</span>
-              </div>
-              <div className="userShowInfo">
-                <MailOutline className="userShowIcon" />
-                <span className="userShowInfoTitle">{`${data.isAdmin}`}</span>
+                <span className="userShowInfoTitle">{CryptoJS.AES.decrypt(data.password, 'shoh').toString(CryptoJS.enc.Utf8)}</span>
               </div>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className='userForm'>
             <div className="productFormLeft">
-              <label>Name</label>
-              <input onChange={(e) => setName(e.target.value)} type="text" placeholder="Name" />
               <label>Username</label>
               <input onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Username" />
               <label>Password</label>
-              <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" />
-              <label>Email</label>
-              <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" />
+              <div className="protuctFormInputWrapper">
+                <input onChange={(e) => setPassword(e.target.value)} type={!eye? "password": 'text'} placeholder="Password" />
+                <Visibility onClick={()=>setEye(!eye)} className="passwordEye" />
+              </div>
             </div>
             <div className="productFormRight">
               <button type="submit" className="productButton">Update</button>

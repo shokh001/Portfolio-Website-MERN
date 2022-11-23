@@ -1,0 +1,9 @@
+.productFormLeft .isAdmin {
+    display: flex;
+    align-items: center;
+}
+
+.productFormLeft .isAdmin input {
+    margin: 0;
+    margin-left: 10px;
+}

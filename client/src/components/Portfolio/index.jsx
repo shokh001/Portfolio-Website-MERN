@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { PortfolioData } from "../../mock/data";
 import "./portfolio.scss";
 
-const Portfolio = ({data}) => {
+const Portfolio = ({ data }) => {
     const [dnone, setDnone] = useState(6);
     const [btnShow, setBtnShow] = useState(false);
 
@@ -32,7 +32,7 @@ const Portfolio = ({data}) => {
                 </div>
 
                 <div className="card-wrapper">
-                    {data.map(
+                    {data?.map(
                         ({
                             id,
                             title,
@@ -67,7 +67,9 @@ const Portfolio = ({data}) => {
                                     <p>{descr}</p>
 
                                     <ul>
-                                        <li>{technology}</li>
+                                        {
+                                            technology.map(({ id, technology }) => <li key={id}>{technology}</li>)
+                                        }
                                     </ul>
                                 </div>
                             );

@@ -1,7 +1,9 @@
 import "./sidebar.css";
 import {
   PermIdentity,
-  Storefront,
+  LibraryBooks,
+  LocationCity,
+  RecordVoiceOver
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
@@ -15,19 +17,25 @@ export default function Sidebar() {
             <Link to="/" className="link">
               <li className="sidebarListItem">
                 <PermIdentity className="sidebarIcon" />
-                Users
+                Admins
               </li>
             </Link>
             <Link to="/products" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
-                Portfolios
+                <LibraryBooks className="sidebarIcon" />
+                Portfolioes
               </li>
             </Link>
             <Link to="/companies" className="link">
               <li className="sidebarListItem">
-                <Storefront className="sidebarIcon" />
+                <LocationCity className="sidebarIcon" />
                 Companies
+              </li>
+            </Link>
+            <Link to="/about" className="link">
+              <li className="sidebarListItem">
+                <RecordVoiceOver className="sidebarIcon" />
+                About Me
               </li>
             </Link>
           </ul>

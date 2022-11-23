@@ -161,3 +161,19 @@
     color: white;
     font-weight: 600;
 }
+
+.protuctFormInputWrapper {
+  position: relative;
+}
+
+.protuctFormInputWrapper input {
+  width: 100%;
+}
+
+.passwordEye {
+  position: absolute;
+  right: 0;
+  top: 2px;
+  cursor: pointer;
+  color: #444;
+}

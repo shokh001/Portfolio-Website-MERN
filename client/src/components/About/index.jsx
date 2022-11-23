@@ -1,8 +1,8 @@
-import React from 'react'
 import me from '../../assets/images/me.jpg'
 import './about.scss'
 
-const About = () => {
+const About = ({ aboutData }) => {
+
     return (
         <div id='about' className="about">
             <div className="container">
@@ -12,31 +12,31 @@ const About = () => {
                         About Me
                     </h2>
 
-                    <p>Hello! My name is Shohjahon. I entered the Tashkent University of Information Technologies in 2019. I am currently a 3rd year student. My interest in web programming started in 2019. I completed a frontend course at the PDP IT Academy in Tashkent.</p>
+                    <p>{aboutData[0]?.descr}</p>
 
                     <p className='aboutTechnology'>Here are a few technologies I've been working with recently:</p>
 
                     <div className="list-technology">
                         <div className='list'>
-                            <div className="technology">HTML</div>
-                            <div className="technology">Css</div>
-                            <div className="technology">Bootstrap</div>
-                            <div className="technology">Sass</div>
-                            <div className="technology">Material UI</div>
+                            {
+                                aboutData[0]?.technologies
+                                    .slice(0, 4)
+                                    .map((value) => <div key={value.id} className="technology">{value.technology}</div>)
+                            }
                         </div>
                         <div className='list'>
-                            <div className="technology">JavaScript</div>
-                            <div className="technology">React js</div>
-                            <div className="technology">Styled Components</div>
-                            <div className="technology">Redux</div>
-                            <div className="technology">Next Js</div>
+                            {
+                                aboutData[0]?.technologies
+                                    .slice(4)
+                                    .map((value) => <div key={value.id} className="technology">{value.technology}</div>)
+                            }
                         </div>
                     </div>
                 </div>
 
                 <div className="right-content">
                     <div className="wrapper">
-                        <img src={me} alt="" />
+                        <img src={aboutData[0]?.image} alt="me" />
                     </div>
                 </div>
             </div>
