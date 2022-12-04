@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   const history = useHistory();
-  const [sideHide, setSideHide] = useState(false);
+  const [sideHide, setSideHide] = useState(localStorage.getItem("user"));
 
   console.log(history);
 

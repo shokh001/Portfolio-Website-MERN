@@ -14,8 +14,10 @@ export default function AboutMe() {
     const [descr, setDescr] = useState('')
     const [img, setImg] = useState('')
     const [cv, setResume] = useState('')
+    const [firstHeroSite, setFirstHeroSite] = useState('')
+    const [secondHeroSite, setSecondHeroSite] = useState('')
     const [technology, setTechnology] = useState('')
-    const [id, setId] = useState(new Date())
+    const [id] = useState(new Date())
 
     let imageUrl = ''
     let resumeUrl = ''
@@ -33,42 +35,45 @@ export default function AboutMe() {
 
     const handleSubmitAdd = async (e) => {
         e.preventDefault();
-        const imgForm = new FormData()
-        imgForm.append("file", img)
-        imgForm.append('upload_preset', "shohjahon")
-        imgForm.append('colud_name', "dnvfkkdbh")
 
-        await fetch('https://api.cloudinary.com/v1_1/dnvfkkdbh/image/upload/', {
-            method: 'post',
-            body: imgForm
-        })
-            .then(res => res.json())
-            .then((res) => imageUrl = res.url)
-            .catch(err => console.log(err, 'err'))
+        if (img !== '') {
+            const imgForm = new FormData()
+            imgForm.append("file", img)
+            imgForm.append('upload_preset', "shohjahon")
+            imgForm.append('colud_name', "dnvfkkdbh")
 
-        const resumeForm = new FormData()
-        resumeForm.append("file", cv)
-        resumeForm.append('upload_preset', "shohjahon")
-        resumeForm.append('colud_name', "dnvfkkdbh")
+            await fetch('https://api.cloudinary.com/v1_1/dnvfkkdbh/image/upload/', {
+                method: 'post',
+                body: imgForm
+            })
+                .then(res => res.json())
+                .then((res) => imageUrl = res.url)
+                .catch(err => console.log(err, 'err'))
+        }
 
-        await fetch('https://api.cloudinary.com/v1_1/dnvfkkdbh/image/upload/', {
-            method: 'post',
-            body: resumeForm
-        })
-            .then(res => res.json())
-            .then((res) => resumeUrl = res.url)
-            .catch(err => console.log(err, 'err'))
+        if (cv !== '') {
+            const resumeForm = new FormData()
+            resumeForm.append("file", cv)
+            resumeForm.append('upload_preset', "shohjahon")
+            resumeForm.append('colud_name', "dnvfkkdbh")
+
+            await fetch('https://api.cloudinary.com/v1_1/dnvfkkdbh/image/upload/', {
+                method: 'post',
+                body: resumeForm
+            })
+                .then(res => res.json())
+                .then((res) => resumeUrl = res.url)
+                .catch(err => console.log(err, 'err'))
+        }
 
         try {
             await axios.put(`http://localhost:5000/api/aboutMe/`, {
                 descr: descr !== '' ? descr : data.descr,
                 technologies: techData.length !== 0 ? [...data[0]?.technologies, ...techData] : data[0]?.technologies,
-                image: imageUrl !== '' ? imageUrl : data.imageUrl,
-                resume: resumeUrl !== '' ? resumeUrl : data.resumeUrl
-                // descr,
-                // technologies: techData,
-                // image: imageUrl,
-                // resume: resumeUrl
+                image: imageUrl !== '' ? imageUrl : data.image,
+                resume: resumeUrl !== '' ? resumeUrl : data.resume,
+                firstHeroSite: firstHeroSite !== '' ? firstHeroSite : data.firstHeroSite,
+                secondHeroSite: secondHeroSite !== '' ? secondHeroSite : data.secondHeroSite,
             })
                 .then((res) => console.log(res, 'javob'))
                 .catch(err => console.log(err, 'err'))
@@ -87,15 +92,17 @@ export default function AboutMe() {
             await axios.put(`http://localhost:5000/api/aboutMe/`, {
                 descr: descr !== '' ? descr : data.descr,
                 technologies: [],
-                image: imageUrl !== '' ? imageUrl : data.imageUrl,
-                resume: resumeUrl !== '' ? resumeUrl : data.resumeUrl
+                image: imageUrl !== '' ? imageUrl : data.image,
+                resume: resumeUrl !== '' ? resumeUrl : data.resume,
+                firstHeroSite: firstHeroSite !== '' ? firstHeroSite : data.firstHeroSite,
+                secondHeroSite: secondHeroSite !== '' ? secondHeroSite : data.secondHeroSite,
             })
-                .then((res) =>{console.log(res, 'javob'); history.push('/about')})
+                .then((res) => { console.log(res, 'javob'); history.push('/about') })
                 .catch(err => console.log(err, 'err'))
         }
         catch (error) {
             console.log(error, 'error')
-        }        
+        }
     }
 
     const onSaveTechData = (e) => {
@@ -124,15 +131,23 @@ export default function AboutMe() {
                         <div className="productInfoBottom">
                             <div className="productInfoItem">
                                 <span className="productInfoKey">Image:</span>
-                                <span className="productInfoValue">{data[0]?.image}</span>
+                                <img src={data[0]?.image} alt="data.image" />
                             </div>
                             <div className="productInfoItem">
                                 <span className="productInfoKey">Resume:</span>
-                                <span className="productInfoValue">{data[0]?.resume}</span>
+                                <img src={data[0]?.resume} alt="data.image" />
                             </div>
                             <div className="productInfoItem">
                                 <span className="productInfoKey">descr:</span>
                                 <span className="productInfoValue">{data[0]?.descr}</span>
+                            </div>
+                            <div className="productInfoItem">
+                                <span className="productInfoKey">firstHeroSite:</span>
+                                <span className="productInfoValue">{data[0]?.firstHeroSite}</span>
+                            </div>
+                            <div className="productInfoItem">
+                                <span className="productInfoKey">secondHeroSite:</span>
+                                <span className="productInfoValue">{data[0]?.secondHeroSite}</span>
                             </div>
                             <div className="productInfoItem">
                                 <span className="productInfoKey">technologies:</span>
@@ -163,6 +178,11 @@ export default function AboutMe() {
                                     techData.map(value => <span key={value.id} onClick={() => deleteTech(value.id)}>{value.technology} <HighlightOff className="protechicon" /></span>)
                                 }
                             </div>
+
+                            <label>First Hero Site Title</label>
+                            <input onChange={(e) => setFirstHeroSite(e.target.value)} type="text" placeholder="First Hero Site" />
+                            <label>Second Hero Site Title</label>
+                            <input onChange={(e) => setSecondHeroSite(e.target.value)} type="text" placeholder="Second Hero Site" />
                         </div>
                         <div className="productFormRight">
                             <button type="submit" className="productButton">Update</button>

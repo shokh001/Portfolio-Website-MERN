@@ -40,19 +40,21 @@ const getPortfolioById = async (req, res) => {
 // add travel book
 const addPortfolio = async (req, res) => {
   try {
-    const { 
+    const {
       external_link,
       link,
       title,
       descr,
-      technology } = req.body;
+      technology,
+      image } = req.body;
 
     const newPorfolio = await portfolio.create({
       external_link,
       link,
       title,
       descr,
-      technology
+      technology,
+      image
     });
 
     res.status(201).json({
@@ -68,19 +70,21 @@ const addPortfolio = async (req, res) => {
 // edit travel book by its ID
 const updatePortfolio = async (req, res) => {
   try {
-    const { 
+    const {
       external_link,
       link,
       title,
       descr,
-      technology } = req.body;
+      technology,
+      image } = req.body;
 
     const updatedPortfolio = await portfolio.findByIdAndUpdate(req.params.id, {
       external_link,
       link,
       title,
       descr,
-      technology
+      technology,
+      image
     });
 
     res.status(200).json({

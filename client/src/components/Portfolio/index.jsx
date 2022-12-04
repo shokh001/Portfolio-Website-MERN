@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { PortfolioData } from "../../mock/data";
 import "./portfolio.scss";
 
 const Portfolio = ({ data }) => {
@@ -13,7 +12,7 @@ const Portfolio = ({ data }) => {
 
     const btnMore = () => {
         setBtnShow(true);
-        setDnone(PortfolioData.length + 1);
+        setDnone(data.length + 1);
     };
 
     return (
@@ -39,10 +38,11 @@ const Portfolio = ({ data }) => {
                             external_link,
                             link,
                             descr,
+                            _id,
                             technology
                         }) => {
                             return (
-                                <div className={dnone >= id ? "card" : "card dnone"} key={id}>
+                                <div className={dnone >= id ? "card" : "card dnone"} key={_id}>
                                     <div className="links">
                                         <i className="far fa-folder"></i>
                                         <div className="github">
@@ -68,7 +68,7 @@ const Portfolio = ({ data }) => {
 
                                     <ul>
                                         {
-                                            technology.map(({ id, technology }) => <li key={id}>{technology}</li>)
+                                            technology.map(({ technology}, i) => <li key={i}>{technology}</li>)
                                         }
                                     </ul>
                                 </div>

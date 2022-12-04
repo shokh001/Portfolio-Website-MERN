@@ -1,4 +1,3 @@
-import me from '../../assets/images/me.jpg'
 import './about.scss'
 
 const About = ({ aboutData }) => {
@@ -20,15 +19,15 @@ const About = ({ aboutData }) => {
                         <div className='list'>
                             {
                                 aboutData[0]?.technologies
-                                    .slice(0, 4)
-                                    .map((value) => <div key={value.id} className="technology">{value.technology}</div>)
+                                    .slice(0, Math.round(aboutData[0]?.technologies.length / 2))
+                                    .map((value, i) => <div key={i} className="technology">{value.technology}</div>)
                             }
                         </div>
                         <div className='list'>
                             {
                                 aboutData[0]?.technologies
-                                    .slice(4)
-                                    .map((value) => <div key={value.id} className="technology">{value.technology}</div>)
+                                    .slice(Math.round(aboutData[0]?.technologies.length / 2))
+                                    .map((value, i) => <div key={i} className="technology">{value.technology}</div>)
                             }
                         </div>
                     </div>

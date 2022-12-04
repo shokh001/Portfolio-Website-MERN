@@ -1,11 +1,11 @@
 import React from "react";
-import fanabi from "../../assets/images/uzbekvoice.png";
 import "./work.scss";
 
-const Work = ({ data }) => {
+const Work = ({ data, aboutData }) => {
 
-  const newData = data.filter((value) => value.title.trim() === 'UzbekVoice')
-  console.log(data);
+  const title = aboutData[0]?.firstHeroSite
+
+  const newData = data.filter((value) => value.title.trim() === title)
 
   return (
     <div className="work experience" id="work">
@@ -23,7 +23,7 @@ const Work = ({ data }) => {
             href={newData[0]?.external_link}
             className="project-img"
           >
-            <img src={fanabi} alt="" />
+            <img src={data[0]?.image} alt="" />
           </a>
           <div className="project-content">
             <h5>Featured Project</h5>

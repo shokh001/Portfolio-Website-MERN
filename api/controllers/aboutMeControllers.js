@@ -44,13 +44,17 @@ const addMe = async (req, res) => {
             descr,
             technologies,
             image,
-            resume } = req.body;
+            resume,
+            firstHeroSite,
+            secondHeroSite } = req.body;
 
         const newCompany = await aboutMe.create({
             descr,
             technologies,
             image,
-            resume
+            resume,
+            firstHeroSite,
+            secondHeroSite
         });
 
         res.status(201).json({
@@ -70,13 +74,17 @@ const updateMe = async (req, res) => {
             descr,
             technologies,
             image,
-            resume } = req.body;
+            resume,
+            firstHeroSite,
+            secondHeroSite } = req.body;
 
         const updatedCompany = await aboutMe.findOneAndUpdate({
             descr,
             technologies,
             image,
-            resume
+            resume,
+            firstHeroSite,
+            secondHeroSite
         });
 
         res.status(200).json({

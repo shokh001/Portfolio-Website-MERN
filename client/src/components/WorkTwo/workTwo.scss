@@ -10,7 +10,7 @@
         .wrapper-project{        
           margin-top: 50px;     
             @media (max-width: 767px) {
-                background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('../../assets/images/movieApp.png');
+                background-image: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85));
                 border-radius: var(--border-radius);
               }
             }

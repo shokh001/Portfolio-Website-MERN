@@ -59,12 +59,13 @@ const Root = () => {
   const fetchAbout = async () => {
     await axios.get('http://localhost:5000/api/aboutMe/')
       .then(res => {
-        console.log(res, 'about');
+        // console.log(res, 'about');
         setAboutData(res.data.data)
         setSpinner(false);
       })
       .catch(err => console.log(err, 'err'))
   }
+
 
   
   useEffect(() => {
@@ -82,8 +83,8 @@ const Root = () => {
         <Main />
         <About aboutData={aboutData}/>
         <Experience companyData={companyData} />
-        <Work data={data} />
-        <WorkTwo data={data} />
+        <Work data={data} aboutData={aboutData} />
+        <WorkTwo data={data} aboutData={aboutData}/>
         <Portfolio data={data} />
         <Contact />
       </div>

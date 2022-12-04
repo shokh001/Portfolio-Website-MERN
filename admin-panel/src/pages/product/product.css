@@ -154,3 +154,9 @@
   color: red;
   cursor: pointer;
 }
+
+.productInfoItem img {
+  width: 150px;
+  margin-left: 20px;
+  margin-top: 20px;
+}

@@ -17,7 +17,15 @@ const AboutMeSchema = new Schema(
         resume: {
             type: String,
             required: true
-        } 
+        },
+        firstHeroSite: {
+          type: String,
+          required: true
+        },
+        secondHeroSite: {
+          type: String,
+          required: true
+        },
     },
     { timestamps: true }
 );

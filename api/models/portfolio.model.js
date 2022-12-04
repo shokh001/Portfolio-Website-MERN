@@ -15,12 +15,16 @@ const portfolio = new Schema({
   },
   descr: {
     type: String,
-    required: true,
+    required: false,
   },
   technology: {
     type: Array,
     required: true,
   },
+  image: {
+    type: String,
+    required: false
+  }
 });
 
 module.exports = model("Portfolio", portfolio);

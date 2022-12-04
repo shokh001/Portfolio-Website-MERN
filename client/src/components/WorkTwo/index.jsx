@@ -3,10 +3,12 @@ import movieApp from '../../assets/images/movieApp.png'
 import '../Work/work.scss'
 import './workTwo.scss'
 
-const WorkTwo = ({ data }) => {
+const WorkTwo = ({ data, aboutData }) => {
 
-    const newData = data.filter((value) => value.title === 'The Movies')
-    console.log(newData);
+    const title = aboutData[0]?.secondHeroSite
+
+    const newData = data.filter((value) => value.title === title)
+    
 
     return (
         <div className="work workTwo experience">
@@ -35,7 +37,7 @@ const WorkTwo = ({ data }) => {
                             </div>
                             <ul style={{ justifyContent: 'flex-start' }}>
                                 {
-                                    newData[0]?.technology.map(({ id, technology }) => <li key={id}>{technology}</li>)
+                                    newData[0]?.technology.map(({ technology },  i) => <li key={i}>{technology}</li>)
                                 }
                             </ul>
 

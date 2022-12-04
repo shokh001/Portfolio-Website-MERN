@@ -12,10 +12,13 @@ export default function Product() {
     const [title, setTitle] = useState('')
     const [external_link, setExternal_link] = useState('')
     const [link, setLink] = useState('')
+    const [img, setImg] = useState('')
     const [descr, setDescr] = useState('')
     const [technology, setTechnology] = useState('')
     const [techData, setTechData] = useState([]);
-    const [id, setId] = useState(new Date())
+    const [id] = useState(new Date())
+
+    let imageUrl = ''
 
     const fetchData = async () => {
         await axios
@@ -28,14 +31,30 @@ export default function Product() {
     }
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
+        if (img !== '') {
+            const imgForm = new FormData()
+            imgForm.append("file", img)
+            imgForm.append('upload_preset', "shohjahon")
+            imgForm.append('colud_name', "dnvfkkdbh")
+
+            await fetch('https://api.cloudinary.com/v1_1/dnvfkkdbh/image/upload/', {
+                method: 'post',
+                body: imgForm
+            })
+                .then(res => res.json())
+                .then((res) => imageUrl = res.url)
+                .catch(err => console.log(err, 'err'))
+        }
+
         await axios
             .put(`http://localhost:5000/api/portfolio/${productId}`, {
                 external_link: external_link !== '' ? external_link : data.external_link,
                 link: link !== '' ? link : data.link,
                 title: title !== '' ? title : data.title,
+                image: imageUrl !== '' ? imageUrl : data.image,
                 descr: descr !== '' ? descr : data.descr,
-                technology: techData.length !== 0 ? [...data.technology, ...techData] : data.technology
+                technology: techData.length !== 0 ? [...data.technology, ...techData] : data.technology,
             })
             .then(res => {
                 console.log(res, 'update');
@@ -51,7 +70,7 @@ export default function Product() {
     const onSaveTechData = (e) => {
         e.preventDefault();
         technology && setTechData([...techData, { id, technology }])
-        setTechnology('')        
+        setTechnology('')
     }
 
     const deleteTech = (id) => {
@@ -78,6 +97,10 @@ export default function Product() {
                             <div className="productInfoItem">
                                 <span className="productInfoKey">title:</span>
                                 <span className="productInfoValue">{data.title}</span>
+                            </div>
+                            <div className="productInfoItem">
+                                <span className="productInfoKey">Image:</span>
+                                <img src={data.image} alt="data.image" />
                             </div>
                             <div className="productInfoItem">
                                 <span className="productInfoKey">external_link:</span>
@@ -111,6 +134,8 @@ export default function Product() {
                             <input onChange={(e) => setLink(e.target.value)} type="text" placeholder="Url on the github" />
                             <label>About the website</label>
                             <input onChange={(e) => setDescr(e.target.value)} type="text" placeholder="Description" />
+                            <label>Project Image</label>
+                            <input onChange={(e) => setImg(e.target.files[0])} type="file" placeholder="My Picture" />
                             <label>Technologies</label>
                             <div className="productUpload">
                                 <input onChange={(e) => setTechnology(e.target.value)} value={technology} type="text" placeholder="Technologies" />
